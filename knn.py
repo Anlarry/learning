@@ -60,15 +60,15 @@ def DisNodeFactory(target:np.ndarray):
 class KDTree:
     def __init__(self, X):
         self.k = len(X[0])
-        self.root = self.Build(X, 0)
-    def Build(self, X:list[np.ndarray], d:int, p:Node=None) -> Node :
+        self.root = self._Build(X, 0)
+    def _Build(self, X:list[np.ndarray], d:int, p:Node=None) -> Node :
         size = len(X)
         if size <= 0 :
             return None
         X = sorted(X, key=lambda x : x[d])
         res = Node(X[size//2], d, p = p)
-        res.l = self.Build(X[:size // 2], (d + 1) % self.k, res)
-        res.r = self.Build(X[size//2 + 1:], (d + 1) % self.k, res)
+        res.l = self._Build(X[:size // 2], (d + 1) % self.k, res)
+        res.r = self._Build(X[size//2 + 1:], (d + 1) % self.k, res)
         return res
     def Nearest(self, x:np.ndarray, k = 1) -> KHeap:
         nearest = self._search(x, self.root)
