@@ -41,7 +41,7 @@ class DecisionTreeBase:
                 child[key] = [each]
         e1 = 0
         for item in child.items():
-            e1 += -len(item[1]) / len(data) * DecisionTreeBase.Entropy(item[1])
+            e1 += len(item[1]) / len(data) * DecisionTreeBase.Entropy(item[1])
         return e0 - e1
     def __init__(self, X, Y, epsilon):
         self.X = X
